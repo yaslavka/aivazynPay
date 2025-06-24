@@ -27,8 +27,8 @@ function DefaultMessage() {
       inline_keyboard: [
         [
           {
-            text: "📄 Открыть статью",
-            url: "https://telegra.ph/eryrtu-06-18",
+            text: "📄 Правила сервиса",
+            url: "https://telegra.ph/POLITIKA-KONFIDENCIALNOSTI-06-24-26",
           },
         ],
         [
