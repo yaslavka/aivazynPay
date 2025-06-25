@@ -33,7 +33,7 @@ function DefaultMessage() {
         ],
         [
           {
-            text: "Принимаю условия и согласен на обработку персональных данных",
+            text: "Прочитано/Принято",
             callback_data: "accept_terms",
           },
         ],
