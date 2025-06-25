@@ -14,7 +14,7 @@ const utc = require("dayjs/plugin/utc");
 const relativeTime = require("dayjs/plugin/relativeTime");
 const localizedFormat = require("dayjs/plugin/localizedFormat");
 const sequelize = require("./db.js");
-const bot = new TelegramBot(process.env.TOKEN, { polling: true });
+const bot = new TelegramBot(process.env.TOKEN, { polling: false });
 const BotController = require("./src/Controllers/BotController");
 const path = require("path");
 
