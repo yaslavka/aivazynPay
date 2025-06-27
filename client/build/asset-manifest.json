@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.39e23421.css",
+    "main.js": "/static/js/main.ba2dc19a.js",
+    "static/js/453.18409d12.chunk.js": "/static/js/453.18409d12.chunk.js",
+    "static/media/hero-back-illustration.svg": "/static/media/hero-back-illustration.834cefe321de1980055f.svg",
+    "static/media/pricing-illustration.svg": "/static/media/pricing-illustration.9ed4fdab0f6fe95d6caa.svg",
+    "static/media/hero-top-illustration.svg": "/static/media/hero-top-illustration.9525298f790dc545c81d.svg",
+    "static/media/check-dark.svg": "/static/media/check-dark.d4bfed4f9c81149816fb1eeadcfe1ef6.svg",
+    "index.html": "/index.html",
+    "static/media/t-bank-inverse.svg": "/static/media/t-bank-inverse.261ac8a848e2766774e9498ffddfa9ef.svg",
+    "static/media/logo.svg": "/static/media/logo.2198bbbe7fd3b3ada0e11faecc80ddc0.svg",
+    "static/media/cta-illustration.svg": "/static/media/cta-illustration.83b5fac93738d6524053.svg",
+    "main.39e23421.css.map": "/static/css/main.39e23421.css.map",
+    "main.ba2dc19a.js.map": "/static/js/main.ba2dc19a.js.map",
+    "453.18409d12.chunk.js.map": "/static/js/453.18409d12.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.39e23421.css",
+    "static/js/main.ba2dc19a.js"
+  ]
+}

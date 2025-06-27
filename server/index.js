@@ -36,6 +36,7 @@ app.use(
   "/html/payForm/success",
   express.static(path.resolve(__dirname, "public")),
 );
+
 app.post("/api/v2/rest/inner/notify", async (req, res) => {
   await PayController.payS(req, res, bot);
 });
