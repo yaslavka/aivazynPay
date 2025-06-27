@@ -14,8 +14,9 @@ const utc = require("dayjs/plugin/utc");
 const relativeTime = require("dayjs/plugin/relativeTime");
 const localizedFormat = require("dayjs/plugin/localizedFormat");
 const sequelize = require("./db.js");
-const bot = new TelegramBot(process.env.TOKEN, { polling: false });
+const bot = new TelegramBot(process.env.TOKEN, { polling: true });
 const BotController = require("./src/Controllers/BotController");
+const PayController = require("./src/Controllers/PayController");
 const path = require("path");
 
 app.use(cors());
@@ -30,8 +31,14 @@ dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
 dayjs.locale("ru");
 const serve = createServer(app);
-
 app.use("/", express.static(path.resolve(__dirname, "public")));
+app.use(
+  "/html/payForm/success",
+  express.static(path.resolve(__dirname, "public")),
+);
+app.post("/api/v2/rest/inner/notify", async (req, res) => {
+  await PayController.payS(req, res, bot);
+});
 
 //
 (async () => {

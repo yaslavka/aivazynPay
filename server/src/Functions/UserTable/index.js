@@ -4,6 +4,7 @@ function userProcess(user) {
   return {
     id: user.id,
     tegId: user.tegId,
+    userName: user.userName,
     email: user.email,
     sumPay: user.sumPay,
     isVerify: user.isVerify,

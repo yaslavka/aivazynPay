@@ -59,4 +59,18 @@ function messagePay(message) {
     },
   };
 }
-module.exports = { DefaultMessage, messagePay, StartMessage };
+async function messagePayS(bot, chatId, orderId, date, sum, email, userName) {
+  await bot.sendMessage(
+    chatId,
+    `
+Оплата №:  ${orderId}
+Дата: ${date}
+Сумма:  ${sum} руб
+
+Пользователь: 
+E-mail: ${email}
+Telegram: @${userName}
+  `,
+  );
+}
+module.exports = { DefaultMessage, messagePay, StartMessage, messagePayS };

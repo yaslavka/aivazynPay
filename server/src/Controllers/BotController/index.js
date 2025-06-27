@@ -5,14 +5,17 @@ const {
   messagePay,
   StartMessage,
 } = require("../../utils/botUtils");
-const { isValidEmail } = require("../../utils");
+const { isValidEmail, tinkoffInit, createSHA256Hash } = require("../../utils");
+const { HistoryModel } = require("../../Models/HistoryModel");
 
 class BotController {
   async startBot(bot) {
     try {
       await bot.onText("/start", async (req) => {
+        console.log(req);
         const data = {
           tegId: req?.chat?.id,
+          username: req?.chat?.username,
         };
         const optionsStart = DefaultMessage();
         const optionsStartEmail = StartMessage();
@@ -43,6 +46,7 @@ class BotController {
         } else {
           await UsersModel.create({
             tegId: data.tegId,
+            userName: data.username,
           });
           await bot.sendMessage(data.tegId, optionsStartEmail.message, {
             parse_mode: "Markdown",
@@ -80,7 +84,7 @@ class BotController {
             break;
           case "start_pay":
             newMessage = messagePay(
-              `Введите сумму для оплаты (от 300 до 300000)`,
+              `Введите сумму для оплаты (от 500 до 300000)`,
             );
             const question = await bot.sendMessage(
               data.tegId,
@@ -99,7 +103,53 @@ class BotController {
                 const amountText = reply.text.trim();
                 if (/^\d+$/.test(amountText)) {
                   const amount = parseInt(amountText);
-                  console.log(amount);
+                  if (amount >= 9 || amount <= 300000) {
+                    const sum = amount * 100;
+                    const historyCreate = await HistoryModel.create({
+                      amount: amount,
+                      userId: user.id,
+                    });
+                    const newData = {
+                      TerminalKey: process.env.TERMINAL_KEY,
+                      Amount: sum.toString().trim(),
+                      OrderId: historyCreate.id.toString().trim(),
+                      Description: "Оплата услуг рекламмы",
+                    };
+                    const dataArr = [
+                      { TerminalKey: newData.TerminalKey },
+                      { Amount: newData.Amount },
+                      { OrderId: newData.OrderId },
+                      { Description: newData.Description },
+                      { Password: process.env.TERMINAL_PASSWORD },
+                    ];
+                    const sortedData = dataArr.sort((a, b) => {
+                      const keyA = Object.keys(a)[0];
+                      const keyB = Object.keys(b)[0];
+                      return keyA.localeCompare(keyB);
+                    });
+                    const concatenatedString = sortedData
+                      .map((obj) => Object.values(obj)[0])
+                      .join("");
+                    const hash = createSHA256Hash(concatenatedString);
+                    const url = await tinkoffInit(sum, newData, hash, user);
+                    if (url) {
+                      newMessage = messagePay(`Перейдите к оплате`);
+                      await bot.sendMessage(data.tegId, newMessage.message, {
+                        reply_markup: {
+                          resize_keyboard: true,
+                          one_time_keyboard: true,
+                          inline_keyboard: [
+                            [
+                              {
+                                text: "Оплатить",
+                                url: url,
+                              },
+                            ],
+                          ],
+                        },
+                      });
+                    }
+                  }
                 }
               },
             );
