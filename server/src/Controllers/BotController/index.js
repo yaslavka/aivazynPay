@@ -103,7 +103,7 @@ class BotController {
                 const amountText = reply.text.trim();
                 if (/^\d+$/.test(amountText)) {
                   const amount = parseInt(amountText);
-                  if (amount >= 9 || amount <= 300000) {
+                  if (amount >= 500 || amount <= 300000) {
                     const sum = amount * 100;
                     const historyCreate = await HistoryModel.create({
                       amount: amount,
